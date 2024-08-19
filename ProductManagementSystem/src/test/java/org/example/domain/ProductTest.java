@@ -1,19 +1,25 @@
 package org.example.domain;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class ProductTest {
 
-    @Test
-    void should_create_product(){
-        Product product = new Product(1L, "testProductName", "testProductDescription", new Price(20));
+    @ParameterizedTest
+    @CsvSource({
+            "1,testProductName,testProductDescription,20",
+            "2,testProductName1,testProductDescription1,30",
+            "3,testProductName2,testProductDescription2,50",
+    })
+    void should_create_product(Long id, String name,String description, double price){
+        Product product = new Product(id, name, description, new Price(price));
 
-        Assertions.assertEquals(1L, product.getId());
-        Assertions.assertEquals("testProductName", product.getName());
-        Assertions.assertEquals("testProductDescription", product.getDescription());
-        Assertions.assertEquals(20, product.price());
+        Assertions.assertEquals(id, product.getId());
+        Assertions.assertEquals(name, product.getName());
+        Assertions.assertEquals(description, product.getDescription());
+        Assertions.assertEquals(price, product.price());
     }
 }
