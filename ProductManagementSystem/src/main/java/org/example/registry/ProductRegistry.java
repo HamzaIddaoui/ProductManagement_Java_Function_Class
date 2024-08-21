@@ -8,6 +8,7 @@ public interface ProductRegistry {
     List<Product> findAll();
     Product find(Long id);
     void add(Product product);
+    void addAll(List<Product> inputProducts);
     Product delete(Long id);
     void update(Product updatedProduct, Product unmodifiedProduct);
 }
