@@ -6,6 +6,7 @@ import org.example.registry.ProductRegistry;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -29,8 +30,8 @@ public class ProductRegistryIMP implements ProductRegistry {
     }
 
     @Override
-    public Product find(Long id) {
-        return products.get(id);
+    public Optional<Product> find(Long id) {
+        return Optional.ofNullable(products.get(id));
     }
 
     @Override
@@ -40,9 +41,8 @@ public class ProductRegistryIMP implements ProductRegistry {
 
     @Override
     public void addAll(List<Product> inputProducts) {
-        Map<Long, Product> productsMap = inputProducts.stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
-        products.putAll(productsMap);
+        products.putAll(inputProducts.stream()
+                .collect(Collectors.toMap(Product::getId, Function.identity())));
     }
 
     @Override
