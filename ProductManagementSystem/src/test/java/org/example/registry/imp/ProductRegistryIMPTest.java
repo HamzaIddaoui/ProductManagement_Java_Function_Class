@@ -31,7 +31,14 @@ class ProductRegistryIMPTest {
     void should_return_product_by_id(){
         Optional<Product> product1 = productRegistry.find(1L);
 
-        Assertions.assertEquals(true, product1.isPresent());
+        Assertions.assertTrue(product1.isPresent());
+    }
+
+    @Test
+    void should_delete_product_by_id(){
+        productRegistry.delete(1L);
+
+        Assertions.assertTrue(productRegistry.find(1L).isEmpty());
     }
 
 }
