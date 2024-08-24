@@ -31,4 +31,10 @@ public class Product {
     public int hashCode() {
         return Objects.hash(id, name, description, price);
     }
+
+    public void update(Product unmodifiedProduct) {
+        name = unmodifiedProduct.name;
+        description = unmodifiedProduct.description;
+        price = unmodifiedProduct.price;
+    }
 }

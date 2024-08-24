@@ -52,6 +52,7 @@ public class ProductRegistryIMP implements ProductRegistry {
 
     @Override
     public void update(Product updatedProduct, Product unmodifiedProduct) {
-
+        updatedProduct.update(unmodifiedProduct);
+        products.put(updatedProduct.getId(), updatedProduct);
     }
 }
