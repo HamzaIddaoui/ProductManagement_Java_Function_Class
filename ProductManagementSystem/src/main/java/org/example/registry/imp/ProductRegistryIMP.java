@@ -1,6 +1,7 @@
 package org.example.registry.imp;
 
 import org.example.domain.Product;
+import org.example.identitymap.ProductsIdentityMap;
 import org.example.registry.ProductRegistry;
 
 import java.util.HashMap;
@@ -11,11 +12,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ProductRegistryIMP implements ProductRegistry {
-    private final Map<Long, Product> products;
+    private final ProductsIdentityMap productsIdentityMap;
     private static ProductRegistry instance = null;
 
     private ProductRegistryIMP() {
-        products = new HashMap<>();
+        this.productsIdentityMap = ProductsIdentityMap.getInstance();
     }
 
     public static ProductRegistry Instance(){
@@ -26,33 +27,29 @@ public class ProductRegistryIMP implements ProductRegistry {
     }
     @Override
     public List<Product> findAll() {
-        return List.copyOf(products.values());
+        return productsIdentityMap.findAll();
     }
 
     @Override
     public Optional<Product> find(Long id) {
-        return Optional.ofNullable(products.get(id));
+        return productsIdentityMap.find(id);
     }
 
     @Override
     public void add(Product product) {
-        products.put(product.getId(), product);
+        productsIdentityMap.put(product);
     }
 
     @Override
-    public void addAll(List<Product> inputProducts) {
-        products.putAll(inputProducts.stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity())));
-    }
+    public void addAll(List<Product> inputProducts) {productsIdentityMap.putAll(inputProducts);}
 
     @Override
     public Product delete(Long id) {
-        return products.remove(id);
+        return productsIdentityMap.delete(id);
     }
 
     @Override
     public void update(Product updatedProduct, Product unmodifiedProduct) {
-        updatedProduct.update(unmodifiedProduct);
-        products.put(updatedProduct.getId(), updatedProduct);
+        productsIdentityMap.update(updatedProduct, unmodifiedProduct);
     }
 }
