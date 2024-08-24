@@ -4,12 +4,8 @@ import org.example.domain.Product;
 import org.example.identitymap.ProductsIdentityMap;
 import org.example.registry.ProductRegistry;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class ProductRegistryIMP implements ProductRegistry {
     private final ProductsIdentityMap productsIdentityMap;
@@ -19,7 +15,7 @@ public class ProductRegistryIMP implements ProductRegistry {
         this.productsIdentityMap = ProductsIdentityMap.getInstance();
     }
 
-    public static ProductRegistry Instance(){
+    public static ProductRegistry getInstance(){
         if(instance == null){
             instance = new ProductRegistryIMP();
         }

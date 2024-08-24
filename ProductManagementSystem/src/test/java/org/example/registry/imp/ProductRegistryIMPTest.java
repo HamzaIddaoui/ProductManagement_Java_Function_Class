@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 class ProductRegistryIMPTest {
-    static ProductRegistry productRegistry = ProductRegistryIMP.Instance();
+    static ProductRegistry productRegistry = ProductRegistryIMP.getInstance();
 
     @BeforeEach
     void setup() {
